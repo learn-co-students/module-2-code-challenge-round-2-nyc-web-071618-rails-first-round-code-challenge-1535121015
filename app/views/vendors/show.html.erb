@@ -1,0 +1,16 @@
+<h1>A Vendor</h1>
+
+<ul>
+    <li><%= @vendor.name %></li>
+
+    <% @sweets.uniq.each do |sweet| %>
+    Sweets:
+      <li> <%=sweet.name%> </li>
+    <% end %>
+</ul>
+
+<%= form_for @vendor do |f| %>
+  <%= collection_select(:vendor, :id, Sweet.all, :id, :name) %>
+  <%= f.text_area :comment %>
+  <%= f.submit %>
+<% end %>
