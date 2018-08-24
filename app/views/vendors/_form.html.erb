@@ -1,0 +1,8 @@
+<%= form_for @vendorsweet do |f| %>
+  <%= f.label :comment %>
+  <%=f.text_field :comment %>
+  <%= hidden_field_tag "vendor_sweet[vendor_id]", "#{@vendor.id}" %>
+  <%= f.collection_select :sweet_id, Sweet.all, :id, :name, prompt: true %>
+  <br/>
+  <%= f.submit%>
+<% end %>
