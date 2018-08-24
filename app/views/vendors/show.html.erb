@@ -1,0 +1,35 @@
+<h1><%= @vendor.name %></h1>
+
+<h2>Sweets</h2>
+
+<ul>
+  <% @vendor.sweets.each do |sweet| %>
+    <li>
+      <%= link_to sweet.name, sweet %><br>
+
+      <h4>Comments:</h4>
+      <% sweet.vendor_sweets.each do |vendor_sweet| %>
+        <% if vendor_sweet.vendor == @vendor %>
+          <p><%= vendor_sweet.comment %></p>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Add Sweets!</h2>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <p><%= error %></p>
+  <% end %>
+<% end %>
+
+<%= form_for @vendor_sweet do |f| %>
+  <%= hidden_field_tag 'vendor_sweet[vendor_id]', @vendor.id %>
+  <%= f.label :sweets %>
+  <%= f.collection_select :sweet_id, @sweets, :id, :name %>
+  <%= f.label :comment %>
+  <%= f.text_field :comment %>
+  <%= f.submit %>
+<% end %>
